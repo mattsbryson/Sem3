@@ -1,0 +1,229 @@
+			/*
+			//loop until done
+			
+			boolean GenTransFile = false;
+			while(!GenTransFile)
+			{
+				System.out.print("To generate a transaction file, please enter y. To not, enter n. To avoid creating a transaction file, enter stop");
+				String in = reader.next();
+				if(in.equalsIgnoreCase("y"))
+				{
+					System.out.print("Please enter the seed name, delimited by spaces: ");
+					name = reader.nextLine();
+					System.out.print("How many names would you like to generate? ");
+					num = reader.nextInt();	
+					trans = new JDatabase(num, name);
+					trans.printData(â€œtransâ€�);
+				}
+				else if(in.equalsIgnoreCase("n"))
+				{
+					//do nothing
+				}
+				else if(in.equalsIgnoreCase("stop"))
+				{
+					break;	
+				}
+				else
+				{
+					System.out.println(â€œPlease enter a valid inputâ€�);
+				}
+			}
+			
+
+			boolean MergeFile = false;
+			while(!MergeFile)
+			{
+				System.out.print("To merge the transaction file, please enter y. To not, enter n. To avoid merging a transaction file, enter stop");
+				String in = reader.next();
+				if(in.equalsIgnoreCase("y"))
+				{
+					
+				}
+				else if(in.equalsIgnoreCase("n"))
+				{
+					//do nothing
+				}
+				else if(in.equalsIgnoreCase("stop"))
+				{
+					break;	
+				}
+				else
+				{
+					System.out.println(â€œPlease enter a valid inputâ€�);
+				}
+			}
+
+
+		*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		old sort ******************* 
+		
+		
+		
+		
+		public void sortData() throws IOException
+	{
+		//create directory
+		File dir = new File("temp");
+		dir.mkdirs();
+		
+		//generate files with data inside, separated by first 3 digits 
+		for (int a = 0; a < dataB.length;a++)
+	    {
+			String tmpName = dataB[a][0].substring(0, 3);
+	        File tmp = new File("temp/tmp" + tmpName + ".txt");
+	        PrintWriter writer = new PrintWriter(new FileWriter(tmp, true));
+	        writer.println(dataB[a][0] + ":" + dataB[a][1] + ":" + dataB[a][2] + ":" + dataB[a][3]);
+	        writer.flush();
+	        writer.close();
+	    }
+		 
+		 //sort the files
+		for (int i = 100; i < 1000; i++)
+	    {
+			File tmp = new File("temp/tmp" + i + ".txt");
+			if (tmp.exists())
+			{
+                int length = 0;
+                BufferedReader tmpLen = new BufferedReader(new FileReader(tmp));
+                while (tmpLen.readLine() != null)
+                {
+                    length++;
+                }
+                tmpLen.close();
+
+                BufferedReader reader = new BufferedReader(new FileReader(tmp));
+                String SortArray[] = new String[length];
+                int j = 0;
+                String sLine = "";
+                while ((sLine = reader.readLine()) != null)
+                {
+                    SortArray[j] = sLine;
+                    j++;
+                }
+                reader.close();
+                
+                
+                //sort array
+                
+                int end = SortArray.length;
+                while (0 < end)
+                {
+                    end--;
+                    boolean swapLine = false;
+                    for (int m = 0; m < end; m++)
+                    {
+                        int a = Integer.parseInt(SortArray[m].substring(0, SortArray[m].indexOf(':')));
+                        int b = Integer.parseInt(SortArray[m+1].substring(00, SortArray[m+1].indexOf(':')));
+                        String temp = null;
+                        if ( a > b)
+                        {
+                                temp = SortArray[m];
+                                SortArray[m] = SortArray[m + 1];
+                                SortArray[m + 1] = temp;
+                                swapLine = true;
+                        }
+                    }
+                    if (!swapLine)
+                        {
+                            break;
+                        }
+                }
+               
+                
+                //sort complete
+                
+                PrintWriter writer = new PrintWriter(new FileWriter(tmp, false));
+                for (int k = 0; k < SortArray.length; k++)
+                {
+                    writer.println(SortArray[k]);
+                }
+                writer.close();
+
+			}
+	    }
+		
+		
+		//save to central file, clean up the mess 
+		 	int j = 0;
+	        for (int i = 100; i < 1000; i++)
+	        {
+	            File tmp = new File("temp/tmp" + i + ".txt");
+	            if (tmp.exists())
+	            {
+	                BufferedReader reader = new BufferedReader(new FileReader(tmp));
+	                String sLine = "";
+	                while ((sLine = reader.readLine()) != null)
+	                {  
+	                    dataB[j][0] = sLine.substring(0, sLine.indexOf(':'));
+	                    sLine = sLine.substring(sLine.indexOf(':') + 1);
+	                    dataB[j][1] = sLine.substring(0, sLine.indexOf(':'));
+	                    sLine = sLine.substring(sLine.indexOf(':') + 1);
+	                    dataB[j][2] = sLine.substring(0, sLine.indexOf(':'));
+	                    sLine = sLine.substring(sLine.indexOf(':') + 1);
+	                    dataB[j][3] = sLine;
+	                    j++;
+	                }
+	                reader.close();
+	            }
+	            tmp.delete();
+	        }
+	        
+	        
+		 
+		 
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	public void SSN()
+	{
+		if(!dataB.isEmpty())
+		{
+			System.out.println("Please intialize the database first.");
+		}
+		else
+		{
+			System.out.println(dataB.size());
+			for(int i = 0; i < dataB.size(); i++)
+			{
+				String ssn = "000000000";
+				int rSSN = (int) Math.random() * 100000000;
+				ssn += rSSN;
+				String [] temp = dataB.get(i);
+				temp[0] = ssn;
+				dataB.add(i, temp);
+				//System.out.println(dataB.size());
+			}
+		}
+	}
+	*/
+	
+			
